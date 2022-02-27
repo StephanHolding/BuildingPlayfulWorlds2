@@ -6,7 +6,7 @@ public class PathfindingTile : MonoBehaviour
 {
 
 	public bool markedWalkable;
-	public Vector2 placeInDictionary;
+	public Vector2Int placeInDictionary;
 	public PathfindingTile previousTileInPath;
 
 
@@ -25,7 +25,7 @@ public class PathfindingTile : MonoBehaviour
 		originalColor = spriteRenderer.color;
 	}
 
-	public void SetPlaceInDictionary(Vector2 newPlace)
+	public void SetPlaceInDictionary(Vector2Int newPlace)
 	{
 		placeInDictionary = newPlace;
 	}
@@ -45,6 +45,12 @@ public class PathfindingTile : MonoBehaviour
 	public void CalculatePathToMe()
 	{
 		DungeonManager.instance.StartCalculatingPath(placeInDictionary);
+	}
+
+	[ContextMenu("Set Starttile")]
+	public void SetStartTileToMe()
+	{
+		DungeonManager.instance.startTile = placeInDictionary;
 	}
 
 }
