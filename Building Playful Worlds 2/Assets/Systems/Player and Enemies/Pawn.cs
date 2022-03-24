@@ -24,6 +24,11 @@ public class Pawn : SceneObject
 
 	}
 
+	public void ChangeAllowedMovement(int changeBy)
+	{
+		allowedMovement += changeBy;
+	}
+
 	public void MoveToTile(Vector2Int target, bool useAllowedMovement = true)
 	{
 		if (movingCoroutine == null)

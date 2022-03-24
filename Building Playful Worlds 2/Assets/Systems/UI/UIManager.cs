@@ -21,6 +21,18 @@ public class UIManager : SingletonTemplateMono<UIManager>
 		allWindows.Add(window.windowName, window);
 	}
 
+	public void ToggleWindow(string windowName)
+	{
+		if (allWindows[windowName].isActive)
+		{
+			HideWindow(windowName);
+		}
+		else
+		{
+			ShowWindow(windowName);
+		}
+	}
+
 	public UI_Window ShowWindow(string windowName)
 	{
 		allWindows[windowName].ShowThisWindow();

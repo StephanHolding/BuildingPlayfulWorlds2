@@ -5,6 +5,7 @@ using UnityEngine;
 public class UI_Window : MonoBehaviour
 {
 	public string windowName;
+	public bool isActive { get; private set; }
 
 	protected virtual void Awake()
 	{
@@ -19,6 +20,7 @@ public class UI_Window : MonoBehaviour
 	public void ShowThisWindow()
 	{
 		gameObject.SetActive(true);
+		isActive = true;
 		OnWindowShown();
 	}
 
@@ -27,6 +29,7 @@ public class UI_Window : MonoBehaviour
 	public void HideThisWindow()
 	{
 		gameObject.SetActive(false);
+		isActive = false;
 		OnWindowHidden();
 	}
 

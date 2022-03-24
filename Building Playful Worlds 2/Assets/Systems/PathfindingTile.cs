@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
 
-public class PathfindingTile : MonoBehaviour
+public class PathfindingTile : MonoBehaviour, IClickable
 {
 
 	public bool markedWalkable;
@@ -20,14 +20,16 @@ public class PathfindingTile : MonoBehaviour
 	private Color originalColor;
 	private SpriteRenderer spriteRenderer;
 	private UnityAction onClick;
+	private Camera mainCam;
 
 	private void Awake()
 	{
 		spriteRenderer = GetComponent<SpriteRenderer>();
 		originalColor = spriteRenderer.color;
+		mainCam = Camera.main;
 	}
 
-	private void OnMouseDown()
+	public void OnClick()
 	{
 		if (onClick != null)
 		{
@@ -72,5 +74,6 @@ public class PathfindingTile : MonoBehaviour
 	{
 		DungeonManager.instance.startTile = placeInDictionary;
 	}
+
 
 }
