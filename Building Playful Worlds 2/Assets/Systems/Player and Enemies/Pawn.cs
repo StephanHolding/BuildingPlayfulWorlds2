@@ -2,17 +2,25 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Pawn : SceneObject
+public class Pawn : SceneObject, ITurnReciever
 {
 	public int allowedMovement;
 	public float movementSpeed;
 
 	private Coroutine movingCoroutine;
 
+	private int originalAllowedMovement;
+
 	//public void SetTarget(Vector2Int targetPos)
 	//{
 	//	MoveToTile(targetPos);
 	//}
+
+	protected override void Awake()
+	{
+		base.Awake();
+		originalAllowedMovement = allowedMovement;
+	}
 
 	protected virtual void EndOfPathReached()
 	{
@@ -69,5 +77,25 @@ public class Pawn : SceneObject
 
 		EndOfPathReached();
 		movingCoroutine = null;
+	}
+
+	public virtual void OnTurnRecieved()
+	{
+
+	}
+
+	public virtual void EndTurn()
+	{
+
+	}
+
+	public virtual void OnTurnEnded()
+	{
+		ResetStatsToOriginal();
+	}
+
+	protected virtual void ResetStatsToOriginal()
+	{
+		allowedMovement = originalAllowedMovement;
 	}
 }

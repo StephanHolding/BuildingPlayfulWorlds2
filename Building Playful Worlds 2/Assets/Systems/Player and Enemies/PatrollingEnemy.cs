@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PatrollingEnemy : Enemy, ITurnReciever
+public class PatrollingEnemy : Enemy
 {
 	//public override void Init(string pawnName)
 	//{
@@ -27,18 +27,15 @@ public class PatrollingEnemy : Enemy, ITurnReciever
 		EndTurn();
 	}
 
-	public void EndTurn()
+	public override void EndTurn()
 	{
+		base.EndTurn();
 		TurnManager.instance.NextTurn();
 	}
 
-	public void OnTurnEnded()
+	public override void OnTurnRecieved()
 	{
-		
-	}
-
-	public void OnTurnRecieved()
-	{
+		base.OnTurnRecieved();
 		CameraManager.instance.FollowTarget(gameObject);
 		MoveToRandomTileWithinRange();
 	}

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ChargingEnemy : Enemy, ITurnReciever
+public class ChargingEnemy : Enemy
 {
 
 	private void MoveTowardsPlayer()
@@ -15,18 +15,15 @@ public class ChargingEnemy : Enemy, ITurnReciever
 		EndTurn();
 	}
 
-	public void EndTurn()
+	public override void EndTurn()
 	{
+		base.EndTurn();
 		TurnManager.instance.NextTurn();
 	}
 
-	public void OnTurnEnded()
+	public override void OnTurnRecieved()
 	{
-		//throw new System.NotImplementedException();
-	}
-
-	public void OnTurnRecieved()
-	{
+		base.OnTurnRecieved();
 		CameraManager.instance.FollowTarget(gameObject);
 		MoveTowardsPlayer();
 	}

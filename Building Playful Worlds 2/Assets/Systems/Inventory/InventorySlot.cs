@@ -8,7 +8,7 @@ public class InventorySlot : MonoBehaviour
 	public Image slotImage;
 
 	private InventoryManager inventoryManager;
-	private InventoryItem holdingItem;
+	protected InventoryItem holdingItem;
 	private Button slotButton;
 	private int slotIndex;
 

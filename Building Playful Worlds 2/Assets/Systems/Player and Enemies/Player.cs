@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : Pawn, ITurnReciever
+public class Player : Pawn
 {
 	public override void Init(string objectName)
 	{
@@ -12,21 +12,46 @@ public class Player : Pawn, ITurnReciever
 
 	public static Vector2Int lastRecordedPosition { get; private set; }
 
+	public Ability[] abilities;
+
 	private List<PathfindingTile> highlightedTiles = new List<PathfindingTile>();
 
-	public void EndTurn()
+	protected override void Awake()
 	{
+		base.Awake();
+
+		for (int i = 0; i < abilities.Length; i++)
+		{
+			abilities[i].SubscribeToAbility(this);
+		}
+	}
+
+	protected override void OnDestroy()
+	{
+		base.OnDestroy();
+
+		for (int i = 0; i < abilities.Length; i++)
+		{
+			abilities[i].UnsubsribeFromAbility(this);
+		}
+	}
+
+	public override void EndTurn()
+	{
+		base.EndTurn();
 		TurnManager.instance.NextTurn();
 	}
 
-	public void OnTurnEnded()
+	public override void OnTurnEnded()
 	{
+		base.OnTurnEnded();
 		lastRecordedPosition = standingOnTile;
 		DungeonManager.instance.DisableHighlightOnTiles(highlightedTiles);
 	}
 
-	public void OnTurnRecieved()
+	public override void OnTurnRecieved()
 	{
+		base.OnTurnRecieved();
 		CameraManager.instance.FollowTarget(gameObject);
 		highlightedTiles = DungeonManager.instance.HighlightTilesInRange(this, allowedMovement);
 	}

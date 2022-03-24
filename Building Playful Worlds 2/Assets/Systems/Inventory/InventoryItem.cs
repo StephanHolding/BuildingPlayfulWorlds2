@@ -8,6 +8,7 @@ public class InventoryItem : MonoBehaviour
 {
 	[Header("Inventory Item")]
 	public Sprite inventoryIcon;
+	public Ability ability;
 
 	private Renderer[] renderers;
 
@@ -42,6 +43,21 @@ public class InventoryItem : MonoBehaviour
 	{
 		ToggleWorldRepresentation(false);
 		transform.SetParent(null, false);
+	}
+
+	public void InvokeAbility()
+	{
+		if (ability != null)
+		{
+			ability.InvokeAbility();
+			DeleteItem();
+		}
+	}
+
+	private void DeleteItem()
+	{
+		InventoryManager.instance.RemoveItemFromInventory(this);
+		Destroy(gameObject);
 	}
 
 	protected virtual Renderer[] GetRelevantRenderers()

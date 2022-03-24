@@ -99,7 +99,7 @@ public class InventoryManager : SingletonTemplateMono<InventoryManager>
 			if (clickedSlotIndex != draggingItemOrigin)
 				currentInventory[draggingItemOrigin] = temp;
 
-			print(temp);
+
 			print(currentInventory[clickedSlotIndex]);
 			print(draggingItem);
 

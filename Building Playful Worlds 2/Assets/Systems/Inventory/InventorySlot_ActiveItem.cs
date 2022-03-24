@@ -17,7 +17,10 @@ public class InventorySlot_ActiveItem : InventorySlot
 	{
 		if (Input.GetKeyDown(activationKeyCode))
 		{
-
+			if (holdingItem != null)
+			{
+				holdingItem.InvokeAbility();
+			}
 		}
 	}
 
