@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : Pawn
+public class Player : Pawn, IEnemyTouchable
 {
 	public override void Init(string objectName)
 	{
@@ -36,6 +36,25 @@ public class Player : Pawn
 		}
 	}
 
+	private void OnTriggerEnter2D(Collider2D collision)
+	{
+		if (!onTurn) return;
+
+		IPlayerTouchable playerTouchable = collision.gameObject.GetComponent<IPlayerTouchable>();
+
+		if (playerTouchable != null)
+		{
+			playerTouchable.OnTouchedByPlayer(this);
+		}
+	}
+
+
+	public void OnTouchedByEnemy(Enemy enemy)
+	{
+		UIManager.instance.ShowWindow("Game Over");
+		TurnManager.instance.Terminate();
+	}
+
 	public override void EndTurn()
 	{
 		base.EndTurn();
@@ -54,6 +73,16 @@ public class Player : Pawn
 		base.OnTurnRecieved();
 		CameraManager.instance.FollowTarget(gameObject);
 		highlightedTiles = DungeonManager.instance.HighlightTilesInRange(this, allowedMovement);
+	}
+
+	public override void ChangeAllowedMovement(int changeBy)
+	{
+		base.ChangeAllowedMovement(changeBy);
+
+		if (onTurn)
+		{
+			highlightedTiles = DungeonManager.instance.HighlightTilesInRange(this, allowedMovement);
+		}
 	}
 
 	protected override void EndOfPathReached()

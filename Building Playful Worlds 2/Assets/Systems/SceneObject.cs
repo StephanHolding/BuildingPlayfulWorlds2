@@ -32,7 +32,7 @@ public class SceneObject : MonoBehaviour
 
 	public virtual void Init(string objectName)
 	{
-		SceneObjectSaveFile saveFile = SerializationManager.GetDataByInstanceIdentifier<SceneObjectSaveFile>(objectName);
+		SceneObjectSaveFile saveFile = DungeonManager.useSaveFile ? SerializationManager.GetDataByInstanceIdentifier<SceneObjectSaveFile>(objectName) : null;
 
 		if (saveFile != null)
 		{

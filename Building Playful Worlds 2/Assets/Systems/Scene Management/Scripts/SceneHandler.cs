@@ -77,6 +77,11 @@ public class SceneHandler : SingletonTemplateMono<SceneHandler>
 		LoadScene(SceneManager.sceneCountInBuildSettings - 1);
 	}
 
+	public void QuitGame()
+	{
+		Application.Quit();
+	}
+
 	public bool NextSceneIsPresent()
 	{
 		int nextSceneIndex = SceneManager.GetActiveScene().buildIndex + 1;

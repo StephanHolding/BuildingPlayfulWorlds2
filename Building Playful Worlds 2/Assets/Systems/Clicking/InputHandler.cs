@@ -8,6 +8,7 @@ public class InputHandler : SingletonTemplateMono<InputHandler>
 	public LayerMask clickableLayers;
 
 	private Camera mainCam;
+	private bool recordInput = true;
 
 	protected override void Awake()
 	{
@@ -17,8 +18,11 @@ public class InputHandler : SingletonTemplateMono<InputHandler>
 
 	private void Update()
 	{
+		if (!recordInput) return;
+
 		MouseRaycast();
 		InventoryButton();
+		SaveLoadButton();
 	}
 
 	private void MouseRaycast()
@@ -45,5 +49,18 @@ public class InputHandler : SingletonTemplateMono<InputHandler>
 		{
 			UIManager.instance.ToggleWindow("Inventory Window");
 		}
+	}
+
+	private void SaveLoadButton()
+	{
+		if (Input.GetKeyDown(KeyCode.Escape))
+		{
+			UIManager.instance.ToggleWindow("Menu");
+		}
+	}
+
+	public void StopRecordingInput()
+	{
+		recordInput = false;
 	}
 }

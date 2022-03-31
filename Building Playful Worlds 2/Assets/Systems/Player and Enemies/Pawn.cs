@@ -7,6 +7,8 @@ public class Pawn : SceneObject, ITurnReciever
 	public int allowedMovement;
 	public float movementSpeed;
 
+	protected bool onTurn = false;
+
 	private Coroutine movingCoroutine;
 
 	private int originalAllowedMovement;
@@ -32,7 +34,7 @@ public class Pawn : SceneObject, ITurnReciever
 
 	}
 
-	public void ChangeAllowedMovement(int changeBy)
+	public virtual void ChangeAllowedMovement(int changeBy)
 	{
 		allowedMovement += changeBy;
 	}
@@ -81,7 +83,7 @@ public class Pawn : SceneObject, ITurnReciever
 
 	public virtual void OnTurnRecieved()
 	{
-
+		onTurn = true;
 	}
 
 	public virtual void EndTurn()
@@ -92,6 +94,12 @@ public class Pawn : SceneObject, ITurnReciever
 	public virtual void OnTurnEnded()
 	{
 		ResetStatsToOriginal();
+		onTurn = false;
+	}
+
+	public virtual void Terminate()
+	{
+		StopAllCoroutines();
 	}
 
 	protected virtual void ResetStatsToOriginal()

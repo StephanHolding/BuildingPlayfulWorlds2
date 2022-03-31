@@ -4,4 +4,6 @@ interface ITurnReciever
 	void OnTurnRecieved();
 	void EndTurn();
 	void OnTurnEnded();
+
+	void Terminate();
 }

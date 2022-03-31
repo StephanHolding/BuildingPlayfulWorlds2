@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class InventoryItem : MonoBehaviour
+public class InventoryItem : MonoBehaviour, IPlayerTouchable
 {
 	[Header("Inventory Item")]
 	public Sprite inventoryIcon;
@@ -23,10 +23,8 @@ public class InventoryItem : MonoBehaviour
 		InventoryManager.instance.AddItemToInventory(this);
 	}
 
-	private void OnTriggerEnter2D(Collider2D collision)
+	public void OnTouchedByPlayer(Player player)
 	{
-		Player player = collision.gameObject.GetComponent<Player>();
-
 		if (player != null)
 		{
 			AddMyselfToInventory();
@@ -72,5 +70,6 @@ public class InventoryItem : MonoBehaviour
 			renderers[i].enabled = toggle;
 		}
 	}
+
 
 }
